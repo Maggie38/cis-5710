@@ -61,6 +61,16 @@ module RegFile (
   logic [`REG_SIZE] regs[NumRegs];
 
   // TODO: your code here
+  always_ff @(posedge clk) begin
+    if (rst) begin
+      integer j;
+      for (j = 0; j < NumRegs; j++) begin
+        regs[j] <= 32'b0;
+      end
+    end else if (we && rd != 0) begin
+      regs[rd] <= rd_data;
+    end
+  end
 
 endmodule
 
